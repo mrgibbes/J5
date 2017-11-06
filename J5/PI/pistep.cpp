@@ -79,74 +79,73 @@ int main(int argc, char** argv)
     lowpulsewidth = atoi(argv[5]);
   }
 
-	int result_gpioInitialise = gpioInitialise();
-	if (result_gpioInitialise < 0)
-	{
-		cout << "Houston, we have a problem: Cannot init GPIO Library" << endl;
-		return result_gpioInitialise;
-	}
-	else
-	{
-		cout << "gpioInitialise Success!" << endl;
-	}
-	int result_gpioSetup = gpioSetup();
-	if (result_gpioSetup < 0)
-	{
-		cout << "Error: " << result_gpioSetup << " " << "gpioSetup Failed." << endl;
-		return result_gpioSetup;
-	}
-	else
-	{
-		cout << "gpioSetup Success!" << endl;
-	}
+  int result_gpioInitialise = gpioInitialise();
+  if (result_gpioInitialise < 0)
+  {
+    cout << "Houston, we have a problem: Cannot init GPIO Library" << endl;
+	return result_gpioInitialise;
+  }
+  else
+  {
+    cout << "gpioInitialise Success!" << endl;
+  }
+  int result_gpioSetup = gpioSetup();
+  if (result_gpioSetup < 0)
+  {
+    cout << "Error: " << result_gpioSetup << " " << "gpioSetup Failed." << endl;
+	return result_gpioSetup;
+  }
+  else
+  {
+    cout << "gpioSetup Success!" << endl;
+  }
 
-	turnOnStepper(0);
-	turnOnStepper(1);
-	turnOnStepper(2);
-	turnOnStepper(3);
+  turnOnStepper(0);
+  turnOnStepper(1);
+  turnOnStepper(2);
+  turnOnStepper(3);
 
   setStepping(stepping);
 
   delayMicrosecondsNoSleep(5);
+  setDirection(direction, 0);
+  setDirection(direction, 1);
+  setDirection(direction, 2);
+  setDirection(direction, 3);
 
-	setDirection(direction, 0);
-	setDirection(direction, 1);
-	setDirection(direction, 2);
-	setDirection(direction, 3);
+  delayMicrosecondsNoSleep(5);
 
-	delayMicrosecondsNoSleep(5);
+  thread t1_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN15);
+  thread t2_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN22); 
+  thread t3_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN16);
+  thread t4_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN18);
 
-	thread t1_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN15);
-	thread t2_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN22);
-	thread t3_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN16);
-	thread t4_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN18);
+  t1_pulse.join();
+  t2_pulse.join();
+  t3_pulse.join();
+  t4_pulse.join();
 
-	t1_pulse.join();
-	t2_pulse.join();
-	t3_pulse.join();
-	t4_pulse.join();
+  //t1_pulse.detach();
+  //t2_pulse.detach();
 
-	//t1_pulse.detach();
-	//t2_pulse.detach();
+  cout << "Turning off Steppers." << endl;
 
-	cout << "Turning off Steppers." << endl;
+  turnOffStepper(0);
+  turnOffStepper(1);
+  turnOffStepper(2);
+  turnOffStepper(3);
 
-	turnOffStepper(0);
-	turnOffStepper(1);
-	turnOffStepper(2);
-	turnOffStepper(3);
-
-	int result_cleanup = cleanup();
-	if (result_cleanup < 0)
-	{
-		cout << "Problem with Cleanup" << endl;
-		return result_cleanup;
-	}
-	else
-	{
-		cout << "Closing Program." << endl;
-		return 0;
-	}
+  int result_cleanup = cleanup();
+  if (result_cleanup < 0)
+  {
+    cout << "Problem with Cleanup" << endl;
+	return result_cleanup;
+  }
+  else
+  {
+	cout << "Closing Program." << endl;
+	return 0;
+  }
 }
 
 void delayMicrosecondsNoSleep (int delay_us)
@@ -156,111 +155,114 @@ void delayMicrosecondsNoSleep (int delay_us)
 	struct timespec gettime_now;
 
 	clock_gettime(CLOCK_REALTIME, &gettime_now);
-	start_time = gettime_now.tv_nsec;		//Get nS value
+	start_time = gettime_now.tv_nsec;                   //Get nS value
 	while (true)
 	{
 		clock_gettime(CLOCK_REALTIME, &gettime_now);
 		time_difference = gettime_now.tv_nsec - start_time;
 		if (time_difference < 0)
-			time_difference += 1000000000;				//(Rolls over every 1 second)
-		if (time_difference > (delay_us * 1000))		//Delay for # nS
+			time_difference += 1000000000;              //(Rolls over every 1 second)
+		if (time_difference > (delay_us * 1000))        //Delay for # nS
 			break;
 	}
 }
 
 int gpioSetup(void)
 {
-	gpioSetPullUpDown(PIN07, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN08, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN10, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN11, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN12, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN13, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN15, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN16, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN18, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN22, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN29, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN31, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN32, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN33, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN35, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN36, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN07, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN08, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN10, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN11, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN12, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN13, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN15, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN16, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN18, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN22, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN29, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN31, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN32, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN33, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN35, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN36, PI_PUD_OFF); // Clear PIN State
 
-	gpioSetMode(PIN07, PI_OUTPUT); // Set GPIO-7 as output.
-	gpioSetMode(PIN08, PI_OUTPUT); // Set GPIO-7 as output.
-	gpioSetMode(PIN10, PI_OUTPUT); // Set GPIO-7 as output.
-	gpioSetMode(PIN11, PI_OUTPUT); // Set GPIO-0 as output.
-	gpioSetMode(PIN12, PI_OUTPUT); // Set GPIO-1 as output.
-	gpioSetMode(PIN13, PI_OUTPUT); // Set GPIO-2 as output.
-	gpioSetMode(PIN15, PI_OUTPUT); // Set GPIO-3 as output.
-	gpioSetMode(PIN16, PI_OUTPUT); // Set GPIO-4 as output.
-	gpioSetMode(PIN18, PI_OUTPUT); // Set GPIO-5 as output.
-	gpioSetMode(PIN22, PI_OUTPUT); // Set GPIO-6 as output.
-	gpioSetMode(PIN29, PI_OUTPUT); // Set GPIO-6 as output.
-	gpioSetMode(PIN31, PI_OUTPUT); // Set GPIO-6 as output.
-	gpioSetMode(PIN32, PI_OUTPUT); // Set GPIO-6 as output.
-	gpioSetMode(PIN33, PI_OUTPUT); // Set GPIO-6 as output.
-	gpioSetMode(PIN35, PI_OUTPUT); // Set GPIO-6 as output.
-	gpioSetMode(PIN36, PI_OUTPUT); // Set GPIO-6 as output.
+  gpioSetMode(PIN07, PI_OUTPUT); // Set GPIO-7 as output.
+  gpioSetMode(PIN08, PI_OUTPUT); // Set GPIO-7 as output.
+  gpioSetMode(PIN10, PI_OUTPUT); // Set GPIO-7 as output.
+  gpioSetMode(PIN11, PI_OUTPUT); // Set GPIO-0 as output.
+  gpioSetMode(PIN12, PI_OUTPUT); // Set GPIO-1 as output.
+  gpioSetMode(PIN13, PI_OUTPUT); // Set GPIO-2 as output.
+  gpioSetMode(PIN15, PI_OUTPUT); // Set GPIO-3 as output.
+  gpioSetMode(PIN16, PI_OUTPUT); // Set GPIO-4 as output.
+  gpioSetMode(PIN18, PI_OUTPUT); // Set GPIO-5 as output.
+  gpioSetMode(PIN22, PI_OUTPUT); // Set GPIO-6 as output.
+  gpioSetMode(PIN29, PI_OUTPUT); // Set GPIO-6 as output.
+  gpioSetMode(PIN31, PI_OUTPUT); // Set GPIO-6 as output.
+  gpioSetMode(PIN32, PI_OUTPUT); // Set GPIO-6 as output.
+  gpioSetMode(PIN33, PI_OUTPUT); // Set GPIO-6 as output.
+  gpioSetMode(PIN35, PI_OUTPUT); // Set GPIO-6 as output.
+  gpioSetMode(PIN36, PI_OUTPUT); // Set GPIO-6 as output.
 
-	gpioSetPullUpDown(PIN07, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN08, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN10, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN11, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN12, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN13, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN15, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN16, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN18, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN22, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN29, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN31, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN32, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN33, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN35, PI_PUD_DOWN); // Sets a pull-down.
-	gpioSetPullUpDown(PIN36, PI_PUD_DOWN); // Sets a pull-down
+  gpioSetPullUpDown(PIN07, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN08, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN10, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN11, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN12, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN13, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN15, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN16, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN18, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN22, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN29, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN31, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN32, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN33, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN35, PI_PUD_DOWN); // Sets a pull-down.
+  gpioSetPullUpDown(PIN36, PI_PUD_DOWN); // Sets a pull-down
 
-	return 0;
+  return 0;
 }
 
 int setDirection(bool direction, short motorIndex)
 {
-	cout << "Setting Direction" << endl;
-	if (motorIndex == 0)
+  cout << "Setting Direction" << endl;
+
+  if (motorIndex == 0)
+  {
+	if (direction == 0) { gpioWrite(PIN32, LOW); }
+	else { gpioWrite(PIN32, HIGH); }
+	return 0;
+  }
+
+  if (motorIndex == 1)
+  {
+	if (direction == 0) { gpioWrite(PIN33, LOW); }
+	else { gpioWrite(PIN33, HIGH); }
+	return 0;
+  }
+
+  if (motorIndex == 2)
 	{
-		if (direction == 0) { gpioWrite(PIN32, LOW); }
-		else { gpioWrite(PIN32, HIGH); }
-		return 0;
-	}
-	if (motorIndex == 1)
-	{
-		if (direction == 0) { gpioWrite(PIN33, LOW); }
-		else { gpioWrite(PIN33, HIGH); }
-		return 0;
-	}
-	if (motorIndex == 2)
-	{
-		if (direction == 0) { gpioWrite(PIN35, LOW); }
-		else { gpioWrite(PIN35, HIGH); }
-		return 0;
+	  if (direction == 0) { gpioWrite(PIN35, LOW); }
+	  else { gpioWrite(PIN35, HIGH); }
+	  return 0;
 	}
 	if (motorIndex == 3)
 	{
-		if (direction == 0) { gpioWrite(PIN36, LOW); }
-		else { gpioWrite(PIN36, HIGH); }
-		return 0;
+	  if (direction == 0) { gpioWrite(PIN36, LOW); }
+	  else { gpioWrite(PIN36, HIGH); }
+	  return 0;
 	}
 	return 0;
 }
 
 int setStepping(int stepping)
 {
-	if (stepping == FULL_STEP)
-	{
-		cout << "Setting Full Stepping" << endl;
-		gpioWrite(PIN29, HIGH);
-		gpioWrite(PIN31, HIGH);
+  if (stepping == FULL_STEP)
+  {
+	cout << "Setting Full Stepping" << endl;
+	gpioWrite(PIN29, HIGH);
+	gpioWrite(PIN31, HIGH);
 	}
 	if (stepping == HALF_STEP)
 	{
@@ -283,7 +285,7 @@ int setStepping(int stepping)
 	return 0;
 }
 
-void pulse(int steps, int highpulsewidth, int lowpulsewidth, int PIN)
+void pulse(long long int totalsteps, int highpulsewidth, int lowpulsewidth, int PIN)
 {
 	while(steps>0)
 	{
@@ -291,7 +293,7 @@ void pulse(int steps, int highpulsewidth, int lowpulsewidth, int PIN)
 		delayMicrosecondsNoSleep(highpulsewidth);
 		gpioWrite(PIN, LOW);
 		delayMicrosecondsNoSleep(lowpulsewidth);
-		steps--;
+		totalsteps--;
 	}
 }
 
