@@ -83,7 +83,7 @@ int main(int argc, char** argv)
   if (result_gpioInitialise < 0)
   {
     cout << "Houston, we have a problem: Cannot init GPIO Library" << endl;
-	return result_gpioInitialise;
+    return result_gpioInitialise;
   }
   else
   {
@@ -93,7 +93,7 @@ int main(int argc, char** argv)
   if (result_gpioSetup < 0)
   {
     cout << "Error: " << result_gpioSetup << " " << "gpioSetup Failed." << endl;
-	return result_gpioSetup;
+    return result_gpioSetup;
   }
   else
   {
@@ -287,7 +287,7 @@ int setStepping(int stepping)
 
 void pulse(long long int totalsteps, int highpulsewidth, int lowpulsewidth, int PIN)
 {
-	while(steps>0)
+	while(totalsteps>0)
 	{
 		gpioWrite(PIN, HIGH);
 		delayMicrosecondsNoSleep(highpulsewidth);
