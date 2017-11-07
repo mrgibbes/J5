@@ -1,6 +1,6 @@
 // step_PI3B_a001
 // Scott Smith
-// Nov 2nd 2017
+// Nov 2nd 2017 - updated Nov 6th 2017
 // alpha 1 of merged code
 // written for a PI3B
 
@@ -139,32 +139,32 @@ int main(int argc, char** argv)
   if (result_cleanup < 0)
   {
     cout << "Problem with Cleanup" << endl;
-	return result_cleanup;
+    return result_cleanup;
   }
   else
   {
-	cout << "Closing Program." << endl;
-	return 0;
+    cout << "Closing Program." << endl;
+    return 0;
   }
 }
 
 void delayMicrosecondsNoSleep (int delay_us)
 {
-	long int start_time;
-	long int time_difference;
-	struct timespec gettime_now;
+  long int start_time;
+  long int time_difference;
+  struct timespec gettime_now;
 
-	clock_gettime(CLOCK_REALTIME, &gettime_now);
-	start_time = gettime_now.tv_nsec;                   //Get nS value
-	while (true)
-	{
-		clock_gettime(CLOCK_REALTIME, &gettime_now);
-		time_difference = gettime_now.tv_nsec - start_time;
-		if (time_difference < 0)
-			time_difference += 1000000000;              //(Rolls over every 1 second)
-		if (time_difference > (delay_us * 1000))        //Delay for # nS
-			break;
-	}
+  clock_gettime(CLOCK_REALTIME, &gettime_now);
+  start_time = gettime_now.tv_nsec;                   //Get nS value
+  while (true)
+  {
+    clock_gettime(CLOCK_REALTIME, &gettime_now);
+    time_difference = gettime_now.tv_nsec - start_time;
+    if (time_difference < 0)
+      time_difference += 1000000000;              //(Rolls over every 1 second)
+    if (time_difference > (delay_us * 1000))        //Delay for # nS
+      break;
+  }
 }
 
 int gpioSetup(void)
@@ -229,164 +229,165 @@ int setDirection(bool direction, short motorIndex)
 
   if (motorIndex == 0)
   {
-	if (direction == 0) { gpioWrite(PIN32, LOW); }
-	else { gpioWrite(PIN32, HIGH); }
-	return 0;
+    if (direction == 0) { gpioWrite(PIN32, LOW); }
+    else { gpioWrite(PIN32, HIGH); }
+      return 0;
   }
 
   if (motorIndex == 1)
   {
-	if (direction == 0) { gpioWrite(PIN33, LOW); }
-	else { gpioWrite(PIN33, HIGH); }
-	return 0;
+    if (direction == 0) { gpioWrite(PIN33, LOW); }
+    else { gpioWrite(PIN33, HIGH); }
+      return 0;
   }
 
   if (motorIndex == 2)
-	{
-	  if (direction == 0) { gpioWrite(PIN35, LOW); }
-	  else { gpioWrite(PIN35, HIGH); }
-	  return 0;
-	}
-	if (motorIndex == 3)
-	{
-	  if (direction == 0) { gpioWrite(PIN36, LOW); }
-	  else { gpioWrite(PIN36, HIGH); }
-	  return 0;
-	}
-	return 0;
+  {
+    if (direction == 0) { gpioWrite(PIN35, LOW); }
+    else { gpioWrite(PIN35, HIGH); }
+      return 0;
+  }
+  if (motorIndex == 3)
+  {
+    if (direction == 0) { gpioWrite(PIN36, LOW); }
+    else { gpioWrite(PIN36, HIGH); }
+      return 0;
+  }
+
+  return 0;
 }
 
 int setStepping(int stepping)
 {
   if (stepping == FULL_STEP)
   {
-	cout << "Setting Full Stepping" << endl;
-	gpioWrite(PIN29, HIGH);
-	gpioWrite(PIN31, HIGH);
-	}
-	if (stepping == HALF_STEP)
-	{
-		cout << "Setting Half Stepping" << endl;
-		gpioWrite(PIN29, LOW);
-		gpioWrite(PIN31, HIGH);
-	}
-	if (stepping == THIR_STEP)
-	{
-		cout << "Setting Third Stepping" << endl;
-		gpioWrite(PIN29, HIGH);
-		gpioWrite(PIN31, LOW);
-	}
-	if (stepping == QUAR_STEP)
-	{
-		cout << "Setting Quarter Stepping" << endl;
-		gpioWrite(PIN29, LOW);
-		gpioWrite(PIN31, LOW);
-	}
-	return 0;
+    cout << "Setting Full Stepping" << endl;
+    gpioWrite(PIN29, HIGH);
+    gpioWrite(PIN31, HIGH);
+  }
+  if (stepping == HALF_STEP)
+  {
+    cout << "Setting Half Stepping" << endl;
+    gpioWrite(PIN29, LOW);
+    gpioWrite(PIN31, HIGH);
+  }
+  if (stepping == THIR_STEP)
+  {
+    cout << "Setting Third Stepping" << endl;
+    gpioWrite(PIN29, HIGH);
+    gpioWrite(PIN31, LOW);
+  }
+  if (stepping == QUAR_STEP)
+  {
+    cout << "Setting Quarter Stepping" << endl;
+    gpioWrite(PIN29, LOW);
+    gpioWrite(PIN31, LOW);
+  }
+    return 0;
 }
 
 void pulse(long long int totalsteps, int highpulsewidth, int lowpulsewidth, int PIN)
 {
-	while(totalsteps>0)
-	{
-		gpioWrite(PIN, HIGH);
-		delayMicrosecondsNoSleep(highpulsewidth);
-		gpioWrite(PIN, LOW);
-		delayMicrosecondsNoSleep(lowpulsewidth);
-		totalsteps--;
-	}
+  while(totalsteps>0)
+  {
+    gpioWrite(PIN, HIGH);
+    delayMicrosecondsNoSleep(highpulsewidth);
+    gpioWrite(PIN, LOW);
+    delayMicrosecondsNoSleep(lowpulsewidth);
+    totalsteps--;
+  }
 }
 
 int turnOnStepper(short motorIndex)
 {
-	if(motorIndex == 0)
-	{
-		gpioWrite(PIN07, LOW); //FL
-	}
+  if(motorIndex == 0)
+  {
+    gpioWrite(PIN07, LOW); //FL
+  }
 
-	if(motorIndex == 1)
-	{
-		gpioWrite(PIN11, LOW); //FR
-	}
+  if(motorIndex == 1)
+  {
+    gpioWrite(PIN11, LOW); //FR
+  }
 
-	if(motorIndex == 2)
-	{
-		gpioWrite(PIN12, LOW); //BL
-	}
+  if(motorIndex == 2)
+  {
+    gpioWrite(PIN12, LOW); //BL
+  }
 
-	if(motorIndex == 3)
-	{
-		gpioWrite(PIN13, LOW); //BR
-	}
+  if(motorIndex == 3)
+  {
+    gpioWrite(PIN13, LOW); //BR
+  }
 
-	return 0;
+  return 0;
 }
 
 int turnOffStepper(short motorIndex)
 {
-	if(motorIndex == 0)
-	{
-		gpioWrite(PIN07, HIGH);
-	}
+  if(motorIndex == 0)
+  {
+    gpioWrite(PIN07, HIGH);
+  }
 
-	if(motorIndex == 1)
-	{
-		gpioWrite(PIN11, HIGH);
-	}
+  if(motorIndex == 1)
+  {
+    gpioWrite(PIN11, HIGH);
+  }
 
-	if(motorIndex == 2)
-	{
-		gpioWrite(PIN12, HIGH);
-	}
+  if(motorIndex == 2)
+  {
+    gpioWrite(PIN12, HIGH);
+  }
 
-	if(motorIndex == 3)
-	{
-		gpioWrite(PIN13, HIGH);
-	}
+  if(motorIndex == 3)
+  {
+    gpioWrite(PIN13, HIGH);
+  }
 
-	return 0;
+  return 0;
 }
 
 int cleanup(void)
 {
-	//gpioWrite(PIN08, LOW);
-	//gpioWrite(PIN10, LOW);
-	//gpioWrite(PIN15, LOW);
-	//gpioWrite(PIN16, LOW);
-	//gpioWrite(PIN18, LOW);
-	//gpioWrite(PIN22, LOW);
-	//gpioWrite(PIN29, LOW);
-	//gpioWrite(PIN31, LOW);
-	//gpioWrite(PIN32, LOW);
-	//gpioWrite(PIN33, LOW);
-	//gpioWrite(PIN35, LOW);
-	//gpioWrite(PIN36, LOW);
+  //gpioWrite(PIN08, LOW);
+  //gpioWrite(PIN10, LOW);
+  //gpioWrite(PIN15, LOW);
+  //gpioWrite(PIN16, LOW);
+  //gpioWrite(PIN18, LOW);
+  //gpioWrite(PIN22, LOW);
+  //gpioWrite(PIN29, LOW);
+  //gpioWrite(PIN31, LOW);
+  //gpioWrite(PIN32, LOW);
+  //gpioWrite(PIN33, LOW);
+  //gpioWrite(PIN35, LOW);
+  //gpioWrite(PIN36, LOW);
 
-	gpioWrite(PIN07, LOW);
-	gpioWrite(PIN11, LOW);
-	gpioWrite(PIN12, LOW);
-	gpioWrite(PIN13, LOW);
+  gpioWrite(PIN07, LOW);
+  gpioWrite(PIN11, LOW);
+  gpioWrite(PIN12, LOW);
+  gpioWrite(PIN13, LOW);
 
-	gpioSetMode(PIN07, PI_INPUT);
-	gpioSetMode(PIN11, PI_INPUT);
-	gpioSetMode(PIN12, PI_INPUT);
-	gpioSetMode(PIN13, PI_INPUT);
+  gpioSetMode(PIN07, PI_INPUT);
+  gpioSetMode(PIN11, PI_INPUT);
+  gpioSetMode(PIN12, PI_INPUT);
+  gpioSetMode(PIN13, PI_INPUT);
 
-	gpioSetPullUpDown(PIN08, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN10, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN15, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN16, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN18, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN22, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN29, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN31, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN32, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN33, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN35, PI_PUD_OFF); // Clear PIN State
-	gpioSetPullUpDown(PIN36, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN08, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN10, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN15, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN16, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN18, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN22, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN29, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN31, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN32, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN33, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN35, PI_PUD_OFF); // Clear PIN State
+  gpioSetPullUpDown(PIN36, PI_PUD_OFF); // Clear PIN State
 
-	delayMicrosecondsNoSleep(100);
-	gpioTerminate();
+  delayMicrosecondsNoSleep(100);
+  gpioTerminate();
 
-	return 0;
+  return 0;
 }
