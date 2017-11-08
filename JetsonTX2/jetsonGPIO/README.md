@@ -8,7 +8,7 @@ A straightforward library to interface with the NVIDIA Jetson TK1, TX1, TX2 Deve
 
 This is a fork of original code listed below.  I as well as many others I am sure have also modified the code far from the orginal mentioned below for license purposes.
 
-jetsonTX2GPIO_test.cpp is used to test he Forked jetsonTX1GPIO Library.
+jetsonTX2GPIO_test.cpp is used to test the Forked jetsonTX1GPIO Library.
 
 To compile: g++ -O2 -Wall jetsonTX2GPIO_test.cpp jetsonGPIO.c -o jetsonTX2GPIOTest
 

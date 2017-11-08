@@ -11,7 +11,7 @@ int main (int argc, char **argv)
   //int to store GPIO pin value 0 or 1 while testing.
   unsigned int value = 15;
 
-  //tells the compiler to use the jetsonTX2GPIONumber enum in jetsonGPIO.h.  I am also defining PIN?? to match the actual pin on the 40 pin header couting from the first Ground pin.
+  //Tells the compiler to use the jetsonTX2GPIONumber enum in jetsonGPIO.h.  I am also defining PIN?? to match the actual pin on the 40 pin header counting from the first Ground pin.
   jetsonTX2GPIONumber PIN18 = gpio481;
   jetsonTX2GPIONumber PIN29 = gpio398;
   jetsonTX2GPIONumber PIN31 = gpio298;
@@ -95,7 +95,19 @@ int main (int argc, char **argv)
   cout << PIN37 << ": " << value << endl;
 
   delayMicrosecondsNoSleep(200);
-    
+
+  gpioActiveLow(PIN18, 0);
+  gpioActiveLow(PIN18, 1);
+
+  delayMicrosecondsNoSleep(200);
+
+  gpioSetEdge(PIN18,"none");
+  gpioSetEdge(PIN18,"rising");
+  gpioSetEdge(PIN18,"falling");
+  gpioSetEdge(PIN18,"both");
+
+  delayMicrosecondsNoSleep(200);
+
   //Return the requested PIN to userspace by modifying /sys/class/gpio/unexport
   gpioUnexport(PIN18);
   gpioUnexport(PIN29);
@@ -114,13 +126,13 @@ void delayMicrosecondsNoSleep (int delay_us)
   struct timespec gettime_now;
 
   clock_gettime(CLOCK_REALTIME, &gettime_now);
-  start_time = gettime_now.tv_nsec;                   //Get nS value
+  start_time = gettime_now.tv_nsec;                 //Get nS value
   while (true)
   {
     clock_gettime(CLOCK_REALTIME, &gettime_now);
     time_difference = gettime_now.tv_nsec - start_time;
     if (time_difference < 0)
-      time_difference += 1000000000;              //(Rolls over every 1 second)
+      time_difference += 1000000000;                //(Rolls over every 1 second)
     if (time_difference > (delay_us * 1000))        //Delay for # nS
       break;
   }
