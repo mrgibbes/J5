@@ -50,12 +50,12 @@ int main (int argc, char **argv)
 
   delayMicrosecondsNoSleep(200);
 
-  cout << "Setting all pins low" << endl;
-  gpioSetValue(PIN18,low);
-  gpioSetValue(PIN29,low);
-  gpioSetValue(PIN31,low);
-  gpioSetValue(PIN33,low);
-  gpioSetValue(PIN37,low);
+  cout << "Setting all pins high" << endl;
+  gpioSetValue(PIN18,high);
+  gpioSetValue(PIN29,high);
+  gpioSetValue(PIN31,high);
+  gpioSetValue(PIN33,high);
+  gpioSetValue(PIN37,high);
 
   delayMicrosecondsNoSleep(200);
 
@@ -73,7 +73,7 @@ int main (int argc, char **argv)
 
   delayMicrosecondsNoSleep(200);
 
-  cout << "Setting all pins high" << endl;
+  cout << "Setting all pins low" << endl;
   gpioSetValue(PIN18,low);
   gpioSetValue(PIN29,low);
   gpioSetValue(PIN31,low);
