@@ -12,8 +12,8 @@ Jetson (written for the TX2 but should be compatible with the TX1.  TK1 versions
 
 Current goals.
 
-- Working TX1 and TX2 GPIO Library.
-- Working UART Library for Infered Time of flight and Sonar Sensors.
-- Working I2C Library for LIDAR sensors.
+- Working TX1 and TX2 GPIO Library. - Done Thanks Jetson Hacks
+- Working UART Library for Infered Time of flight and Sonar Sensors. - Done Thanks ROS
+- Working I2C Library for LIDAR sensors. - Done Thanks Jetson Hacks
 
-- Recompile LSD_SLAM to work with the Jetson TX2 development board.
+- Recompile LSD_SLAM to work with the Jetson TX2 development board. NOT Done Thanks God
