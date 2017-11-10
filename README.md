@@ -17,4 +17,4 @@ Current goals.
 - Working I2C Library for LIDAR sensors. - Done Thanks Jetson Hacks
 
 - Recompile LSD_SLAM to work with the Jetson TX2 development board. NOT Done Thanks God
-- Recompile OSD_SLAM_GPU on the Jetson TX2 development board.  https://github.com/yunchih/ORB-SLAM2-GPU2016-final
+- Recompile OSD_SLAM_GPU on the Jetson TX2 development board. - Done Thanks https://github.com/yunchih/ORB-SLAM2-GPU2016-final
