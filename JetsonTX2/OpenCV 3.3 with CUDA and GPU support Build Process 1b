@@ -5,7 +5,8 @@ sudo dpkg -i cuda-repo-l4t-8-0-local_8.0.84-1_arm64.deb
 sudo sed -i.bak 's/\(^deb.*main restricted\)\s*$/\1 universe multiverse/g' /etc/apt/sources.list
 sudo sed -i.bak 's/\(^deb.*main restricted universe\)\s*$/\1 multiverse/g' /etc/apt/sources.list
 
-sudo apt-get update #30 minutes
+#30 minutes
+sudo apt-get update
 
 sudo apt-get install cuda-toolkit-8.0 libgomp1 libfreeimage-dev libopenmpi-dev openmpi-bin
 
@@ -16,4 +17,9 @@ grep -q "export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64" ~/.bashrc || echo "ex
 export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 
 #MrGibbes - github.com/mrgibbes/buildOpenCVTX2
-$ ./buildOpenCV.sh #2 hour
+#Missing C++ 11 compiler support
+#https://github.com/opencv/opencv/issues/5205
+#https://devtalk.nvidia.com/default/topic/1007290/building-opencv-with-opengl-support-/
+#2 hour
+
+$ ./buildOpenCV.sh
