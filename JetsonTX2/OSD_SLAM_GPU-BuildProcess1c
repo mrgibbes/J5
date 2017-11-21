@@ -1,0 +1,22 @@
+#Install Pangolin:
+git clone https://github.com/mrgibbes/J5/Pangolin
+cd Pangolin
+mkdir build
+cd build
+cmake ..
+cmake --build .
+
+#Adjust power mode to turn off Denver cores or the compile will fail.
+sudo nvpmodel -m 3
+
+#Compile OSD_SLAM_GPU
+cd ORB_SLAM2
+chmod +x build.sh
+./build.sh
+
+#Adjust power mode to turn ON Denver cores (better performance of single threded apps)
+sudo nvpmodel -m 0
+
+
+
+

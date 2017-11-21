@@ -17,32 +17,3 @@ export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
 #https://github.com/opencv/opencv/issues/5205
 #https://devtalk.nvidia.com/default/topic/1007290/building-opencv-with-opengl-support-/
 git apply ./jetsonFixOpenCVOpenGL
-
-#MrGibbes - github.com/mrgibbes/buildOpenCVTX2 Add "-DWITH_OPENGL=ON \" to buildOpenCV.sh
-./buildOpenCV.sh
-cd $HOME/opencv/build
-make
-sudo make install
-
-#Install Pangolin:
-git clone https://github.com/mrgibbes/J5/Pangolin
-cd Pangolin
-mkdir build
-cd build
-cmake ..
-cmake --build .
-
-#Adjust power mode to turn off Denver cores or the compile will fail.
-sudo nvpmodel -m 3
-
-#Compile OSD_SLAM_GPU
-cd ORB_SLAM2
-chmod +x build.sh
-./build.sh
-
-#Adjust power mode to turn ON Denver cores (better performance of single threded apps)
-sudo nvpmodel -m 0
-
-
-
-

@@ -1,0 +1,5 @@
+#MrGibbes - github.com/mrgibbes/buildOpenCVTX2 Add "-DWITH_OPENGL=ON \" to buildOpenCV.sh
+./buildOpenCV.sh
+cd $HOME/opencv/build
+make
+sudo make install
