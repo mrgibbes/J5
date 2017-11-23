@@ -27,7 +27,7 @@ sudo apt-get install -y python-dev python-numpy python-py python-pytest -y
 
 # GStreamer support
 #MrGibbes - Was sudo apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
-sudo apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-good1.0-dev 
+sudo apt-get install -y libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-good1.0-dev
 
 git clone https://github.com/opencv/opencv.git
 cd opencv

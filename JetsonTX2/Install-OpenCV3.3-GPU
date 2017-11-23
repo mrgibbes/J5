@@ -1,5 +1,8 @@
 #MrGibbes - https://github.com/mrgibbes/buildOpenCVTX2.git Add "-DWITH_OPENGL=ON \" to buildOpenCV.sh
 
+#Required for OpenGL
+sudo apt-get install libgtkglext1 libgtkglext1-dev
+
 #Adjust power level to Enable Denver Cores and clock all cores to maximum.
 sudo nvpmodel -m 0
 
