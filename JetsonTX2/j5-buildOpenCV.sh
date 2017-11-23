@@ -20,21 +20,6 @@ sudo apt-get install -y \
     cmake \
     pkg-config
 
-#MrGibbes
-#libgstreamer-plugins-good1.0-dev
-#libgstreamer-plugins-good1.0-0
-#libgstreamer-plugins-base1.0-dev
-#libgstreamer-plugins-base1.0-0
-#libgstreamer-plugins-base0.10-dev
-#libgstreamer-plugins-base0.10-0
-#libgstreamer0.10-dev
-#libgstreamer0.10-0
-#libgstreamer1.0-dev
-#libgstreamer1.0-0
-
-#gir1.2-gst-plugins-base-0.10
-#gir1.2-gstreamer-0.10
-
 #-DWITH_OPENGL=ON \
 
 # Python 2.7
