@@ -5,17 +5,40 @@ sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C
 
 sudo apt-get update
 
-sudo apt-get install ros-kinetic-desktop-full
+#sudo apt-get install ros-kinetic-desktop-full
 #sudo apt-get install ros-kinetic-desktop
-#sudo apt-get install ros-kinetic-ros-base
+sudo apt-get install ros-kinetic-ros-base
 
-sudo apt install libsuitesparse-dev libqglviewer-dev-qt4 ros-kinetic-libg2o  
+sudo apt-get install libsuitesparse-dev libqglviewer-dev-qt4 ros-kinetic-libg2o  
 sudo ln -s /usr/lib/aarch64-linux-gnu/libQGLViewer-qt4.so /usr/lib/aarch64-linux-gnu/libQGLViewer.so  
+
+------------------------------------------------
+http://wiki.ros.org/catkin/Tutorials/create_a_workspace
+source /opt/ros/kinetic/setup.bash
+mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws/
+catkin_make
+source devel/setup.bash
+
+xxxx
+echo $ROS_PACKAGE_PATH
+/home/youruser/catkin_ws/src:/opt/ros/kinetic/share
+xxxx
+
+echo $ROS_PACKAGE_PATH /home/nvidia/catkin_ws/src:/opt/ros/kinetic/share
+---------------------------------------------------
 
 cd catkin_ws  
 git clone https://github.com/kevin-george/lsd_slam.git src/lsd_slam
 
+sudo apt-get install ros-kinetic-cv-bridge ros-kinetic-image-transport (if using ros-kinetic-ros-base)
+
 catkin_make # This will fail
+
+sudo rosdep init and rosdep update
+
+#For non SSE machines
+remove or comment out # add_definitions("-DENABLE_SSE") /src/lsd_slam/lsd_slam_core/CMakeLists.txt
 
 python src/lsd_slam/lsd_slam_viewer/src/lsd_slam_viewer/cfg/LSDSLAMViewerParamsConfig.py 
 cp src/lsd_slam/lsd_slam_viewer/cfg/cpp/lsd_slam_viewer/LSDSLAMViewerParamsConfig.h src/lsd_slam/lsd_slam_viewer/src/lsd_slam_viewer
@@ -25,7 +48,6 @@ python src/lsd_slam/lsd_slam_core/src/lsd_slam_core/cfg/LSDDebugParamsConfig.py
 cp src/lsd_slam/lsd_slam_core/cfg/cpp/lsd_slam_core/LSDDebugParamsConfig.h src/lsd_slam/lsd_slam_core/src/lsd_slam_core/
 
 catkin_make
-
 
 #Usage
 #Run a cv_camera node
