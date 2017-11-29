@@ -26,7 +26,7 @@ source devel/setup.bash
 
 echo $ROS_PACKAGE_PATH /home/nvidia/catkin_ws/src:/opt/ros/kinetic/share
 
-Copy vision_opencv source to catkin_ws/src
+copy modified vision_opencv source to catkin_ws/src
 
 sudo su
 source /home/mrgibbes/catkin_ws/devel/setup.bash
@@ -35,17 +35,11 @@ cd catkin_ws
 catkin_make -DCMAKE_BUILD_TYPE=Release
 catkin_make install -DCMAKE_INSTALL_PREFIX=/opt/ros/kinetic
 
-cd catkin_ws/src
-remove vision_opencv source
-cd catkin_ws/devel
-remove all
-cd catkin_ws/build
-remove all
-cd catkin_ws
-remove install
+####
+# Clean up catkin_ws
+####
 
-catkin_make
-
-copy cv_camera source to catkin_ws/src
+copy modified cv_camera source to catkin_ws/src
 cd catkin_ws
-catkin_make
+catkin_make -DCMAKE_BUILD_TYPE=Release
+catkin_make install -DCMAKE_INSTALL_PREFIX=/opt/ros/kinetic
