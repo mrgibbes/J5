@@ -30,12 +30,7 @@ Copy vision_opencv source to catkin_ws/src
 
 cd catkin_ws
 catkin_make
-cd build
-make
-make install
-
-cd catkin_ws/install
-sh ./setup.sh
+catkin_make install
 
 cd catkin_ws/src
 remove vision_opencv source
