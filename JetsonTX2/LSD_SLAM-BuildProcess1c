@@ -9,6 +9,9 @@ sudo apt-get update
 #sudo apt-get install ros-kinetic-desktop
 sudo apt-get install ros-kinetic-ros-base
 
+sudo rosdep init
+rosdep update
+
 sudo apt-get install libsuitesparse-dev libqglviewer-dev-qt4 ros-kinetic-libg2o  
 sudo ln -s /usr/lib/aarch64-linux-gnu/libQGLViewer-qt4.so /usr/lib/aarch64-linux-gnu/libQGLViewer.so  
 
@@ -19,23 +22,23 @@ mkdir -p ~/catkin_ws/src
 cd ~/catkin_ws/
 catkin_make
 source devel/setup.bash
-
-xxxx
-echo $ROS_PACKAGE_PATH
-/home/youruser/catkin_ws/src:/opt/ros/kinetic/share
-xxxx
-
-echo $ROS_PACKAGE_PATH /home/nvidia/catkin_ws/src:/opt/ros/kinetic/share
 ---------------------------------------------------
 
 cd catkin_ws  
 git clone https://github.com/kevin-george/lsd_slam.git src/lsd_slam
 
-sudo apt-get install ros-kinetic-cv-bridge ros-kinetic-image-transport (if using ros-kinetic-ros-base)
+####
+#Do this if using ros-kinetic-ros-base but NOT using custom OpenCV
+#sudo apt-get install ros-kinetic-cv-bridge ros-kinetic-image-transport
+####
+
+####
+#Do this only if compiling with custom OpenCV
+#$ROS_PACKAGE_PATH
+#export ROS_PACKAGE_PATH=/usr:$ROS_PACKAGE_PATH Where /usr is the path of your custom OpenCV build
+####
 
 catkin_make # This will fail
-
-sudo rosdep init and rosdep update
 
 #For non SSE machines
 remove or comment out # add_definitions("-DENABLE_SSE") /src/lsd_slam/lsd_slam_core/CMakeLists.txt
