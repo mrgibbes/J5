@@ -9,7 +9,7 @@ cmake --build .
 #Adjust power mode to turn off Denver cores or the compile will fail.
 sudo nvpmodel -m 3
 
-#Compile OSD_SLAM_GPU
+#Compile ORB_SLAM
 cd ORB_SLAM2
 chmod +x build.sh
 ./build.sh
