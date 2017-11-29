@@ -33,3 +33,21 @@ catkin_make
 cd build
 make
 make install
+
+cd catkin_ws/install
+sh ./setup.sh
+
+cd catkin_ws/src
+remove vision_opencv source
+cd catkin_ws/devel
+remove all
+cd catkin_ws/build
+remove all
+cd catkin_ws
+remove install
+
+catkin_make
+
+copy cv_camera source to catkin_ws/src
+cd catkin_ws
+catkin_make
