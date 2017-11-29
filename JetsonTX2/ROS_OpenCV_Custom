@@ -28,6 +28,9 @@ echo $ROS_PACKAGE_PATH /home/nvidia/catkin_ws/src:/opt/ros/kinetic/share
 
 Copy vision_opencv source to catkin_ws/src
 
+sudo su
+source /home/mrgibbes/catkin_ws/devel/setup.bash
+
 cd catkin_ws
 catkin_make -DCMAKE_BUILD_TYPE=Release
 catkin_make install -DCMAKE_INSTALL_PREFIX=/opt/ros/kinetic
