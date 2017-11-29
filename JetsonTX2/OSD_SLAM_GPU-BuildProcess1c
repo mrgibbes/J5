@@ -16,7 +16,3 @@ chmod +x build.sh
 
 #Adjust power mode to turn ON Denver cores (better performance of single threded apps)
 sudo nvpmodel -m 0
-
-
-
-
