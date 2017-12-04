@@ -23,4 +23,7 @@ roscore
 
 new terminal
 
-echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
+#If using differnt catkin workspace other then ~/catkin_ws
+#IE: echo "source /home/gibbes/include/jetson_csi_cam_ws/devel/setup.bash" >> ~/.bashrc
+
+source ~/.bashrc
