@@ -7,7 +7,9 @@ sudo sed -i.bak 's/\(^deb.*main restricted universe\)\s*$/\1 multiverse/g' /etc/
 
 sudo apt-get update
 
-sudo apt-get install ros-kinetic-ros-base
+sudo apt-get install ros-kinetic-ros-base ros-kinetic-gscam
+sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
+
 cd ~/catkin_ws/src
 git clone https://github.com/peter-moran/jetson_csi_cam.git 
 git clone https://github.com/ros-drivers/gscam.git
@@ -15,3 +17,4 @@ Then edit ./gscam/Makefile and add the CMake flag -DGSTREAMER_VERSION_1_x=On to 
 
 EXTRA_CMAKE_FLAGS = -DUSE_ROSBUILD:BOOL=1 -DGSTREAMER_VERSION_1_x=On
 
+catkin_make ..
