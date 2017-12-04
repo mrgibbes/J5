@@ -1,3 +1,5 @@
+##Might need https://devtalk.nvidia.com/default/topic/975452/l4t-24-2-and-kinect-v2/
+
 #Install ROS Kinetic http://wiki.ros.org/kinetic/Installation/Ubuntu
 sudo sed -i.bak 's/\(^deb.*main restricted\)\s*$/\1 universe multiverse/g' /etc/apt/sources.list
 sudo sed -i.bak 's/\(^deb.*main restricted universe\)\s*$/\1 multiverse/g' /etc/apt/sources.list
