@@ -18,3 +18,9 @@ Then edit ./gscam/Makefile and add the CMake flag -DGSTREAMER_VERSION_1_x=On to 
 EXTRA_CMAKE_FLAGS = -DUSE_ROSBUILD:BOOL=1 -DGSTREAMER_VERSION_1_x=On
 
 catkin_make ..
+
+roscore
+
+new terminal
+
+echo "source /opt/ros/kinetic/setup.bash" >> ~/.bashrc
