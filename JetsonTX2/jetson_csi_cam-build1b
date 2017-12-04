@@ -11,7 +11,6 @@ sudo apt-get upgrade
 #Install Multimedia API using Jetpack
 
 sudo apt-get install ros-kinetic-ros-base ros-kinetic-image-transport ros-kinetic-camera-calibration ros-kinetic-camera-calibration-parsers ros-kinetic-camera-info-manager
-sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
 
 cd ~/catkin_ws/src
 git clone https://github.com/peter-moran/jetson_csi_cam.git 
