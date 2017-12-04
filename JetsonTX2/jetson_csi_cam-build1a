@@ -8,7 +8,7 @@ sudo sed -i.bak 's/\(^deb.*main restricted universe\)\s*$/\1 multiverse/g' /etc/
 sudo apt-get update
 sudo apt-get upgrade
 
-Install Multimedia API using Jetpack 
+#Install Multimedia API using Jetpack 
 
 sudo apt-get install ros-kinetic-ros-base
 sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev
