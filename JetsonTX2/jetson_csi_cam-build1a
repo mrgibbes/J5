@@ -1,1 +1,17 @@
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+
+sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
+
+sudo sed -i.bak 's/\(^deb.*main restricted\)\s*$/\1 universe multiverse/g' /etc/apt/sources.list
+sudo sed -i.bak 's/\(^deb.*main restricted universe\)\s*$/\1 multiverse/g' /etc/apt/sources.list
+
+sudo apt-get update
+
+sudo apt-get install ros-kinetic-ros-base
+cd ~/catkin_ws/src
+git clone https://github.com/peter-moran/jetson_csi_cam.git 
+git clone https://github.com/ros-drivers/gscam.git
+Then edit ./gscam/Makefile and add the CMake flag -DGSTREAMER_VERSION_1_x=On to the first line of the file, so that it reads:
+
+EXTRA_CMAKE_FLAGS = -DUSE_ROSBUILD:BOOL=1 -DGSTREAMER_VERSION_1_x=On
 
