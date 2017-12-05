@@ -1,5 +1,5 @@
 #Compile Pangolin:
-git clone https://github.com/mrgibbes/Pangolin.git
+git clone https://github.com/mrgibbes/Pangolin.git pangolin
 cd Pangolin
 mkdir build
 cd build
@@ -10,7 +10,7 @@ cmake --build .
 sudo nvpmodel -m 3
 
 #Compile ORB_SLAM
-git clone https://github.com/mrgibbes/ORB_SLAM2
+git clone https://github.com/mrgibbes/ORB_SLAM2 orb_slam2
 cd ORB_SLAM2
 chmod +x build.sh
 ./build.sh
