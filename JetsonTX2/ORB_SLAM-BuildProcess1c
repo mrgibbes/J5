@@ -13,7 +13,16 @@ sudo nvpmodel -m 3
 git clone https://github.com/mrgibbes/ORB_SLAM2 orb_slam2
 cd ORB_SLAM2
 chmod +x build.sh
-./build.sh
+
+#########
+#For non ROS build
+#./build.sh
+#########
+
+#########
+#For ROS dependent build
+#./build_ros.sh
+#########
 
 #Adjust power mode to turn ON Denver cores (better performance of single threded apps)
 sudo nvpmodel -m 0
