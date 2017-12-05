@@ -21,6 +21,7 @@ chmod +x build.sh
 
 #########
 #For ROS dependent build
+#If using ros-kinetic-base then sudo apt-get install ros-kinetic-rqt-tf-tree
 #./build_ros.sh
 #########
 
