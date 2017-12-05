@@ -28,4 +28,4 @@ Completed goals.
 - Working GPS breakout interface. - Done Thanks ???
 
 - Recompile LSD_SLAM to work with the Jetson TX2 development board. Done Thanks https://github.com/kevin-george/lsd_slam
-- Recompile OSD_SLAM_GPU on the Jetson TX2 development board. - Done Thanks https://github.com/yunchih/ORB-SLAM2-GPU2016-final
+- Recompile ORB_SLAM_GPU on the Jetson TX2 development board. - Done Thanks https://github.com/yunchih/ORB-SLAM2-GPU2016-final
