@@ -1,4 +1,4 @@
-#Install Pangolin:
+#Compile Pangolin:
 git clone https://github.com/mrgibbes/Pangolin.git
 cd Pangolin
 mkdir build
@@ -10,6 +10,7 @@ cmake --build .
 sudo nvpmodel -m 3
 
 #Compile ORB_SLAM
+git clone https://github.com/mrgibbes/ORB_SLAM2
 cd ORB_SLAM2
 chmod +x build.sh
 ./build.sh
