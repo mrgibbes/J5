@@ -12,8 +12,8 @@ Jetson (written for the TX2 but should be compatible with the TX1.  TK1 versions
 
 Current goals.
 
-- Rebuild and document build process for working OSD/LSD SLAM with GPU support using newer OpenCV (3.3+) on ROS Kinetic, Ubuntu Xenial
-- Attempt and document build process for working OSD/LSD SLAM with GPU support using newer OpenCV4Tegra (NVidia maintained port for Jetson series boards)
+- Rebuild and document build process for working ORB/LSD SLAM with GPU support using newer OpenCV (3.3+) on ROS Kinetic, Ubuntu Xenial
+- Attempt and document build process for working ORB/LSD SLAM with GPU support using newer OpenCV4Tegra (NVidia maintained port for Jetson series boards)
 - Test and tune performance of SLAM alternatives.
 - Compile, build, and document working Hough Tranform algorithm layerd on OpenCV and gstreamer for raw camera input.
 - Document Ultimate GPS breakout on the TX2 over UART using gpsd and cgps.
