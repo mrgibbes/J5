@@ -1,5 +1,5 @@
 # J5
-Johnny 5 - Testbuild
+Johny 5 - Testbuild
 
 The purpose of this Git repository is to sandbox code while developing. The goal is to create easy to use Libraries that can be used in conjuntion with the Robot Operating System (ROS) for robotics development and education.
 
