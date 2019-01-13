@@ -23,7 +23,8 @@ modify /orb_slam2/Examples/ROS/ORB_SLAM2/src/mono.cc||rgbd.cc||stero.cc to use d
 
 #########
 #For ROS dependent build
-#If using ros-kinetic-base then sudo apt-get install ros-kinetic-rqt-tf-tree
+#If using ros-kinetic-base then:
+#sudo apt-get install ros-kinetic-tf ros-kinetic-rqt-tf-tree ros-kinetic-image-transport ros-kinetic-cv-bridge
 #./build_ros.sh
 #########
 
