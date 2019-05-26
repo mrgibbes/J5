@@ -1,7 +1,7 @@
 // singleStep_JTX2_a001
 // Scott Smith
-// Nov 7th 2017 - updated Nov xx
-// alpha 1
+// Nov 7th 2017 - updated May 2019
+// alpha 2
 // written for a Jetson TX2
 
 #include <iostream>
@@ -25,13 +25,13 @@ const int QUAR_STEP = 4;
 const int CCW = 1;
 const int CW = 0;
 
-void pulse(long long int totalsteps, int highDelay, int lowDelay, int PIN);
-void delayMicrosecondsNoSleep (int delay_us);
+void pulse(long long int totalsteps, unsigned int highDelay, unsigned int lowDelay, jetsonTX2GPIONumber PIN);
+void delayMicrosecondsNoSleep (unsigned int delay_us);
 int main(int argc, char ** argv);
 int turnOffStepper(void);
 int turnOnStepper(void);
 int setDirection(bool direction);
-int setStepping(int stepping);
+int setStepping(unsigned int stepping);
 int gpioSetup(void);
 int cleanup(void);
 
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
 {
   unsigned int stepping = 0;
   unsigned int direction = 0;
-  unsigned long long totalsteps = 0;
+  long long totalsteps = 0;
   unsigned int highpulsewidth = 0;
   unsigned int lowpulsewidth = 0;
   char* parent;
@@ -75,7 +75,7 @@ int main(int argc, char** argv)
   }
 
   turnOnStepper();
-          
+
   setStepping(stepping);
 
   delayMicrosecondsNoSleep(5);
@@ -103,7 +103,7 @@ int main(int argc, char** argv)
   }
 }
 
-void delayMicrosecondsNoSleep (int delay_us)
+void delayMicrosecondsNoSleep (unsigned int delay_us)
 {
   long int start_time;
   long int time_difference;
@@ -127,21 +127,21 @@ int gpioSetup()
   int result_gpioSetup;
 
   //Remove the requested PIN from userspace by modifying /sys/class/gpio/export
-  if ((result_gpioSetup = gpioExport(PIN18)) != 0) {return result_gpioSetup};
-  if ((result_gpioSetup = gpioExport(PIN29)) != 0) {return result_gpioSetup};
-  if ((result_gpioSetup = gpioExport(PIN31)) != 0) {return result_gpioSetup};
-  if ((result_gpioSetup = gpioExport(PIN33)) != 0) {return result_gpioSetup};
-  if ((result_gpioSetup = gpioExport(PIN37)) != 0) {return result_gpioSetup};
+  if ((result_gpioSetup = gpioExport(PIN18)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioExport(PIN29)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioExport(PIN31)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioExport(PIN33)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioExport(PIN37)) != 0) {return result_gpioSetup;}
 
   delayMicrosecondsNoSleep(5);
 
   cout << "Setting direction as output" << endl;
 
-  if ((result_gpioSetup = gpioSetDirection(PIN18,outputPin)) != 0) {return result_gpioSetup};
-  if ((result_gpioSetup = gpioSetDirection(PIN29,outputPin)) != 0) {return result_gpioSetup};
-  if ((result_gpioSetup = gpioSetDirection(PIN31,outputPin)) != 0) {return result_gpioSetup};
-  if ((result_gpioSetup = gpioSetDirection(PIN33,outputPin)) != 0) {return result_gpioSetup};
-  if ((result_gpioSetup = gpioSetDirection(PIN37,outputPin)) != 0) {return result_gpioSetup};
+  if ((result_gpioSetup = gpioSetDirection(PIN18,outputPin)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioSetDirection(PIN29,outputPin)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioSetDirection(PIN31,outputPin)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioSetDirection(PIN33,outputPin)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioSetDirection(PIN37,outputPin)) != 0) {return result_gpioSetup;}
 
   delayMicrosecondsNoSleep(5);
 }
@@ -156,34 +156,34 @@ int turnOffStepper(void)
   gpioSetValue(PIN29, high);
 }
 
-int setStepping(int stepping)
+int setStepping(unsigned int stepping)
 {
   if (stepping == FULL_STEP)
   {
     cout << "Setting Full Stepping" << endl;
-    gpioWrite(PIN31, high);
-    gpioWrite(PIN33, high);
+    gpioSetValue(PIN31, high);
+    gpioSetValue(PIN33, high);
   }
 
   if (stepping == HALF_STEP)
   {
     cout << "Setting Half Stepping" << endl;
-    gpioWrite(PIN31, low);
-    gpioWrite(PIN33, high);
+    gpioSetValue(PIN31, low);
+    gpioSetValue(PIN33, high);
   }
 
   if (stepping == THIR_STEP)
   {
     cout << "Setting Third Stepping" << endl;
-    gpioWrite(PIN31, high);
-    gpioWrite(PIN33, low);
+    gpioSetValue(PIN31, high);
+    gpioSetValue(PIN33, low);
   }
 
   if (stepping == QUAR_STEP)
   {
     cout << "Setting Quarter Stepping" << endl;
-    gpioWrite(PIN31, low);
-    gpioWrite(PIN33, low);
+    gpioSetValue(PIN31, low);
+    gpioSetValue(PIN33, low);
   }
   return 0;
 }
@@ -195,7 +195,7 @@ int setDirection(bool direction)
       return 0;
 }
 
-void pulse(long long int totalsteps, int highDelay, int lowDelay, int PIN)
+void pulse(long long int totalsteps, unsigned int highpulsewidth, unsigned int lowpulsewidth, jetsonTX2GPIONumber PIN)
 {
   while(totalsteps>0)
   {
