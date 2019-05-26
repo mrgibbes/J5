@@ -127,33 +127,33 @@ int gpioSetup()
   int result_gpioSetup;
 
   //Remove the requested PIN from userspace by modifying /sys/class/gpio/export
-  if ((result_gpioSetup = gpioExport(PIN18)) != 0) {return result_gpioSetup;}
-  if ((result_gpioSetup = gpioExport(PIN29)) != 0) {return result_gpioSetup;}
-  if ((result_gpioSetup = gpioExport(PIN31)) != 0) {return result_gpioSetup;}
-  if ((result_gpioSetup = gpioExport(PIN33)) != 0) {return result_gpioSetup;}
-  if ((result_gpioSetup = gpioExport(PIN37)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioExport(PIN19)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioExport(PIN21)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioExport(PIN22)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioExport(PIN23)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioExport(PIN24)) != 0) {return result_gpioSetup;}
 
   delayMicrosecondsNoSleep(5);
 
   cout << "Setting direction as output" << endl;
 
-  if ((result_gpioSetup = gpioSetDirection(PIN18,outputPin)) != 0) {return result_gpioSetup;}
-  if ((result_gpioSetup = gpioSetDirection(PIN29,outputPin)) != 0) {return result_gpioSetup;}
-  if ((result_gpioSetup = gpioSetDirection(PIN31,outputPin)) != 0) {return result_gpioSetup;}
-  if ((result_gpioSetup = gpioSetDirection(PIN33,outputPin)) != 0) {return result_gpioSetup;}
-  if ((result_gpioSetup = gpioSetDirection(PIN37,outputPin)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioSetDirection(PIN19,outputPin)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioSetDirection(PIN21,outputPin)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioSetDirection(PIN22,outputPin)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioSetDirection(PIN23,outputPin)) != 0) {return result_gpioSetup;}
+  if ((result_gpioSetup = gpioSetDirection(PIN24,outputPin)) != 0) {return result_gpioSetup;}
 
   delayMicrosecondsNoSleep(5);
 }
 
 int turnOnStepper(void)
 {
-  gpioSetValue(PIN17, low);
+  gpioSetValue(PIN21, low);
 }
 
 int turnOffStepper(void)
 {
-  gpioSetValue(PIN17, high);
+  gpioSetValue(PIN21, high);
 }
 
 int setStepping(unsigned int stepping)
