@@ -25,7 +25,7 @@ const int QUAR_STEP = 4;
 const int CCW = 1;
 const int CW = 0;
 
-void pulse(long long int totalsteps, unsigned int highDelay, unsigned int lowDelay, jetsonTX2GPIONumber PIN);
+void pulse(long long int totalsteps, unsigned int highDelay, unsigned int lowDelay, jetsonTXNanoGPIONumber PIN);
 void delayMicrosecondsNoSleep (unsigned int delay_us);
 int main(int argc, char ** argv);
 int turnOffStepper(void);
@@ -194,7 +194,7 @@ int setDirection(bool direction)
       return 0;
 }
 
-void pulse(long long int totalsteps, unsigned int highpulsewidth, unsigned int lowpulsewidth, jetsonTX2GPIONumber PIN)
+void pulse(long long int totalsteps, unsigned int highpulsewidth, unsigned int lowpulsewidth, jetsonTXNanoGPIONumber PIN)
 {
   while(totalsteps>0)
   {
