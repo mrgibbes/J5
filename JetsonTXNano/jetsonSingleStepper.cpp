@@ -163,7 +163,7 @@ int setStepping(unsigned int stepping)
     cout << "Setting Full Stepping" << endl;
     gpioSetValue(PIN22, high);
     gpioSetValue(PIN23, high);
-
+  }
   if (stepping == HALF_STEP)
   {
     cout << "Setting Half Stepping" << endl;
