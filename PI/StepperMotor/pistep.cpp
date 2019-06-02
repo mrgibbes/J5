@@ -3,6 +3,7 @@
 // Nov 2nd 2017 - updated Nov 6th 2017
 // alpha 1 of merged code
 // written for a PI3B
+// g++ -o pistep pistep.cpp -lpthread -lpigpio
 
 #include <pigpio.h>
 #include <iostream>
@@ -11,7 +12,7 @@
 
 using namespace std;
 
-void pulse(int steps, int highDelay, int lowDelay, int PIN);
+void pulse(long long int steps, int highDelay, int lowDelay, int PIN);
 void delayMicrosecondsNoSleep (int delay_us);
 int main(int argc, char ** argv);
 int turnOffStepper(short motorIndex);
@@ -116,14 +117,14 @@ int main(int argc, char** argv)
   delayMicrosecondsNoSleep(5);
 
   thread t1_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN15);
-  thread t2_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN22); 
+  thread t2_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN22);
   thread t3_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN16);
   thread t4_pulse(pulse, totalsteps,highpulsewidth,lowpulsewidth,PIN18);
 
-  t1_pulse.join();
-  t2_pulse.join();
-  t3_pulse.join();
-  t4_pulse.join();
+  t1_pulse.detach();
+  t2_pulse.detach();
+  t3_pulse.detach();
+  t4_pulse.detach();
 
   //t1_pulse.detach();
   //t2_pulse.detach();
